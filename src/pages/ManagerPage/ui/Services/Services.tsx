@@ -28,17 +28,18 @@ export const ChatComponent = () => {
     const currentUserId = useSelector($currentUserId);
     const { receiverId } = useParams();
 
-    const chatDto = {
-        senderId: currentUserId,
-        receiverId: receiverId,
-    };
     useEffect(() => {
+        const chatDto = {
+            senderId: currentUserId,
+            receiverId: receiverId,
+        };
         const socketInstance = io('ws://localhost:3005', {
             extraHeaders: {
                 authorization: `Bearer ${JSON.stringify(localStorage.getItem('token'))}`,
             },
         });
-        console.log('Отправка события createChat');
+        socketInstance.emit('joinChat', { receiverId, senderId: currentUserId });
+
         setSocket(socketInstance);
         socketInstance.emit('createChat', chatDto);
         socketInstance.emit('fetchMessages', { receiverId, senderId: currentUserId });
@@ -57,7 +58,7 @@ export const ChatComponent = () => {
                 socketInstance.disconnect(); // Закрываем соединение
             }
         };
-    }, [receiverId]);
+    }, [currentUserId, receiverId]);
 
     const sendMessage = () => {
         if (newMessage.trim() && socket) {
@@ -72,6 +73,7 @@ export const ChatComponent = () => {
 
     return (
         <div style={styles.chatContainer}>
+            <h1>{}</h1>
             <div style={styles.messageList}>
                 {messages.map((msg) => (
                     <div

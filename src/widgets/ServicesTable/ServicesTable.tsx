@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import cls from './Service.module.scss';
 import { getAllUsers } from 'entities/Service/model/service/getAllUsers';
 import { useAppDispatch } from 'app/providers/StoreProvider';
 import { useSelector } from 'react-redux';
@@ -9,6 +8,7 @@ import { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
 import { getRouteChatId } from 'shared/config/routeConfig/routeConfig';
 import { $currentUserId } from 'features/Auth/model/selectors';
+import cls from './Service.module.scss';
 
 function generateColor(username: string): string {
     const hash = username.split('').reduce((acc, char) => char.charCodeAt(0) + ((acc << 5) - acc), 0);
