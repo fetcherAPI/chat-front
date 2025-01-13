@@ -1,0 +1,88 @@
+:root {
+    --font-family-main: consolas, 'Times New Roman', serif;
+
+    // s
+    --font-size-s: 12px;
+    --font-line-s: 20px;
+    --font-s: var(--font-size-s) / var(--font-line-s) var(--font-family-main);
+
+    // m
+    --font-size-m: 16px;
+    --font-line-m: 24px;
+    --font-m: var(--font-size-m) / var(--font-line-m) var(--font-family-main);
+
+    // l
+    --font-size-l: 24px;
+    --font-line-l: 32px;
+    --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
+
+    // xl
+    --font-size-xl: 32px;
+    --font-line-xl: 40px;
+    --font-xl: var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
+
+    // Размеры
+    --navbar-height: 50px;
+    --sidebar-width: 300px;
+    --sidebar-width-collapsed: 80px;
+
+    // z - Индексы
+    --modal-z-index: 1000;
+    --overlay-z-index: 100;
+
+    // Цвета
+    --overlay-color: rgba(0 0 0 / 60%);
+    --red-light: #f00;
+    --red-dark: #ce0505;
+
+    //screen sizes
+    --middle-sreen: 767px;
+
+
+    //Colors
+    --main-color: #fff;
+    --line-color: rgba(255, 255, 255, 0.1);
+    --button-primary-color: #FFC73A;
+    --hover-button-primary-color: #fcd36b;
+    --button-primary-transparet-color: rgba(251, 204, 0, 0.1);
+    --button-secondary-color: #54617A;
+    --modal-bg-color: #fff;
+    --modal-title-color: #1A2546;
+    --input-border-color: #D3E1F1;
+    --input-label-text-color: #2A3657;
+    --error-color: #D63717;
+    --jut: #ff9f8b;
+    --error-transparet-color: rgba(255, 81, 65, 0.1);
+    --input-placeholder-color: #8695AF;
+    --selected-nav-link-color: #2a60b7;
+
+    --active-step-background-color: #4ab453;
+    --active-step-background-transparent-color: rgba(
+                                                    74,
+                                                    180,
+                                                    83,
+                                                    0.15
+                                                    );
+    --active-step-text-color: #1c822f;
+    --success-color: #1c822f;
+    --success-transparet-color: rgba(66, 255, 65, 0.1);
+    --side-bar-btn-border-color: #e8f0f8;
+    --waiting-step-background-color: #aebfd7;
+    --waiting-step-background-transparent-color: rgba(
+                                                    174,
+                                                    191,
+                                                    215,
+                                                    0.15
+                                                    );
+    --waiting-step-text-color: #54617a;
+    --img_picker_btn: #54617a;
+
+    --cancel-order-color: #2A60B7;
+
+    --border-radius: 5px;
+
+    --action-btn-bg-color: #ea4335;
+    --action-btn-hover-bg-color: #e75917;
+
+    --box-shadow: 0px 0px 11px 0px rgba(34, 60, 80, 0.2);
+}

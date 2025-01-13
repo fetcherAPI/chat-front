@@ -1,0 +1,12 @@
+
+        URL: /tender/67610a623362855debf20efd
+        URL2: http://10.200.24.103:8088/tender/67610a623362855debf20efd
+        Method: DELETE
+        Status Code: 400
+        Error Message1: Request failed with status code 400
+        Error Message2: {"status":400,"message":"Вы не можете удалить тендер со статусом PENDING_COMMISSION","object":null}
+        Error Message3: Вы не можете удалить тендер со статусом PENDING_COMMISSION
+        Payload: undefined
+        Username: dev_procuring_entity_head
+        Token: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZXZfcHJvY3VyaW5nX2VudGl0eV9oZWFkIiwiaWF0IjoxNzM0NDEyNTI5LCJleHAiOjE3MzUwMTczMjl9.L7TbWVM70mjZZTXPDwdRNrD2MilUDwtgB0nthRgMVYwXL1vw77yuBnxUHiFiDZdOvC2NOpNMBi2PKwdYj_itqQ
+      
