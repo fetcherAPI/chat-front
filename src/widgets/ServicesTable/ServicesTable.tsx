@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { getAllUsers } from 'entities/Service/model/service/getAllUsers';
+import { getAllChats, getAllUsers } from 'entities/Service/model/service/getAllUsers';
 import { useAppDispatch } from 'app/providers/StoreProvider';
 import { useSelector } from 'react-redux';
-import { $users } from 'entities/Service/model/selectors';
+import { $chatGroups, $users } from 'entities/Service/model/selectors';
 import { Avatar, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useNavigate } from 'react-router-dom';
@@ -21,11 +21,14 @@ function generateColor(username: string): string {
 export const ServicesTable = () => {
     const dispatch = useAppDispatch();
     const users = useSelector($users);
+    const groups = useSelector($chatGroups);
     const currentUserId = useSelector($currentUserId);
     const navigate = useNavigate();
     const handleClickRow = (targetUserId: string) => {
         navigate(`${getRouteChatId(targetUserId)}`);
     };
+
+    console.log('users', users);
     const columns: ColumnsType<any> = [
         {
             title: 'Action',
@@ -43,8 +46,26 @@ export const ServicesTable = () => {
             key: 'name',
         },
     ];
+
+    const columnsGrups: ColumnsType<any> = [
+        {
+            title: 'Action',
+            key: 'action',
+            sorter: true,
+            render: (_, record) => (
+                <Avatar style={{ backgroundColor: 'tomato' }}>{`${record.name[0]}${record.name[1]}`}</Avatar>
+            ),
+        },
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            key: 'name',
+        },
+    ];
+
     useEffect(() => {
         dispatch(getAllUsers());
+        dispatch(getAllChats());
     }, []);
 
     return (
@@ -56,7 +77,18 @@ export const ServicesTable = () => {
                 pagination={false}
                 onRow={(record) => {
                     return {
-                        onClick: () => handleClickRow(record.id), // click row
+                        onClick: () => handleClickRow(`${record.id}-chat`), // click row
+                    };
+                }}
+            />
+            <Table<any>
+                columns={columnsGrups}
+                showHeader={false}
+                dataSource={groups}
+                pagination={false}
+                onRow={(record) => {
+                    return {
+                        onClick: () => handleClickRow(`${record.id}-group`), // click row
                     };
                 }}
             />

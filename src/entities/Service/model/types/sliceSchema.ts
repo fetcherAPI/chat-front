@@ -10,4 +10,5 @@ export interface ISerivceSliceSchema {
     servicesTotalCount: number;
     nodes: Record<string, Array<IService>>;
     users: Array<any>;
+    allGroups: Array<any>;
 }

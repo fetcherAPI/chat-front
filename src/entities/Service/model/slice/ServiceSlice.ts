@@ -9,7 +9,7 @@ import { getSplittersByChapterId } from '../service/getSplittersByChapterId.ts';
 import { createSplitter } from '../service/createSplitter.ts';
 import { getServicesByParentId } from '../service/getServicesByParentId.ts';
 import { IService } from '../types/service.ts';
-import { getAllUsers } from '../service/getAllUsers.ts';
+import { getAllChats, getAllUsers } from '../service/getAllUsers.ts';
 
 const initialState: ISerivceSliceSchema = {
     serivcesList: [],
@@ -17,6 +17,7 @@ const initialState: ISerivceSliceSchema = {
     servicesTotalCount: 0,
     nodes: {},
     users: [],
+    allGroups: [],
 };
 
 const ServiceSlice = createSlice({
@@ -110,6 +111,20 @@ const ServiceSlice = createSlice({
                 state.error = undefined;
             })
             .addCase(getAllUsers.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = errorHandler(action.payload as AxiosError);
+            })
+            //getAllChats
+            .addCase(getAllChats.pending, (state) => {
+                state.isLoading = true;
+                state.error = undefined;
+            })
+            .addCase(getAllChats.fulfilled, (state, action) => {
+                state.allGroups = action.payload;
+                state.isLoading = false;
+                state.error = undefined;
+            })
+            .addCase(getAllChats.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = errorHandler(action.payload as AxiosError);
             })

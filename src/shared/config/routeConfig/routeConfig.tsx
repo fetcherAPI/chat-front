@@ -69,7 +69,7 @@ export const ChildRoutePath: Record<ChildRoutes, string> = {
     [ChildRoutes.BILLS]: 'bills',
     [ChildRoutes.PAYMENT_CODES]: 'paymentCodes',
     [ChildRoutes.GENERATE_CODE]: 'generateCode',
-    [ChildRoutes.CHAT]: getRouteChatId(':receiverId'),
+    [ChildRoutes.CHAT]: getRouteChatId(':id'),
 
     // последний
 };

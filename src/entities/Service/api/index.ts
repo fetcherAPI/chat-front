@@ -50,6 +50,10 @@ export class ServiceApi {
     static async getAllUser(): Promise<AxiosResponse<Array<ISplitter>>> {
         return api.get('user/getAll');
     }
+
+    static async getAllGroups(): Promise<AxiosResponse<Array<ISplitter>>> {
+        return api.get('chat-group/allChats');
+    }
 }
 
 // 4403071001000190

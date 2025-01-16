@@ -21,3 +21,5 @@ export const $selectNodesByParentId = (parentId: string | null) =>
     });
 
 export const $users = (s: StateSchema) => s.service.users;
+
+export const $chatGroups = (s: StateSchema) => s.service.allGroups;

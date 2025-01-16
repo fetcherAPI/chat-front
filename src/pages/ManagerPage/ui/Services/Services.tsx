@@ -24,10 +24,14 @@ const Services = () => {
 export const ChatComponent = () => {
     const [socket, setSocket] = useState<Socket | null>(null);
     const [messages, setMessages] = useState<any[]>([]);
+    const [messagesG, setMessagesG] = useState<any[]>([]);
     const [newMessage, setNewMessage] = useState('');
     const currentUserId = useSelector($currentUserId);
-    const { receiverId } = useParams();
+    const { id } = useParams();
 
+    const [receiverId, grup] = id ? id.split('-') : ['', ''];
+    console.log('id', id);
+    console.log('receiverId', receiverId);
     useEffect(() => {
         const chatDto = {
             senderId: currentUserId,
@@ -42,14 +46,25 @@ export const ChatComponent = () => {
 
         setSocket(socketInstance);
         socketInstance.emit('createChat', chatDto);
+
         socketInstance.emit('fetchMessages', { receiverId, senderId: currentUserId });
+
+        socketInstance.emit('fetchMessagesG', { chatId: receiverId });
 
         socketInstance.on('messagesHistory', (messages) => {
             setMessages(messages);
         });
 
+        socketInstance.on('messagesHistoryG', (messages) => {
+            setMessagesG(messages);
+        });
+
         socketInstance.on('receiveMessage', (message) => {
             setMessages((prevMessages) => [...prevMessages, message]);
+        });
+
+        socketInstance.on('receiveMessageG', (message) => {
+            setMessagesG((prevMessages) => [...prevMessages, message]);
         });
 
         return () => {
@@ -61,9 +76,16 @@ export const ChatComponent = () => {
     }, [currentUserId, receiverId]);
 
     const sendMessage = () => {
-        if (newMessage.trim() && socket) {
-            socket.emit('sendMessage', { receiverId, text: newMessage, senderId: currentUserId });
-            setNewMessage('');
+        if (grup === 'group') {
+            if (newMessage.trim() && socket) {
+                socket.emit('sendMessageGroup', { receiverId, text: newMessage, senderId: currentUserId });
+                setNewMessage('');
+            }
+        } else {
+            if (newMessage.trim() && socket) {
+                socket.emit('sendMessage', { receiverId, text: newMessage, senderId: currentUserId });
+                setNewMessage('');
+            }
         }
     };
 
@@ -75,18 +97,31 @@ export const ChatComponent = () => {
         <div style={styles.chatContainer}>
             <h1>{}</h1>
             <div style={styles.messageList}>
-                {messages.map((msg) => (
-                    <div
-                        key={msg.id}
-                        style={{
-                            ...styles.message,
-                            alignSelf: msg.senderId === currentUserId ? 'flex-end' : 'flex-start',
-                            backgroundColor: msg.senderId === currentUserId ? '#d1e7dd' : '#f8d7da',
-                        }}
-                    >
-                        <p>{msg.text}</p>
-                    </div>
-                ))}
+                {grup === 'group'
+                    ? messagesG.map((msg) => (
+                          <div
+                              key={msg.id}
+                              style={{
+                                  ...styles.message,
+                                  alignSelf: msg.senderId === currentUserId ? 'flex-end' : 'flex-start',
+                                  backgroundColor: msg.senderId === currentUserId ? '#d1e7dd' : '#f8d7da',
+                              }}
+                          >
+                              <p>{msg.text}</p>
+                          </div>
+                      ))
+                    : messages.map((msg) => (
+                          <div
+                              key={msg.id}
+                              style={{
+                                  ...styles.message,
+                                  alignSelf: msg.senderId === currentUserId ? 'flex-end' : 'flex-start',
+                                  backgroundColor: msg.senderId === currentUserId ? '#d1e7dd' : '#f8d7da',
+                              }}
+                          >
+                              <p>{msg.text}</p>
+                          </div>
+                      ))}
             </div>
             <div style={styles.inputContainer}>
                 <input
